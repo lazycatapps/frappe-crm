@@ -1,0 +1,51 @@
+# Frappe CRM LZC Build 配置
+# 整个文件中,可以通过 ${var} 的方式,使用 manifest 字段指定的文件定义的值
+
+# buildscript: 构建脚本
+# 构建离线优化的 Frappe CRM 镜像
+# 使用 Dockerfile 预先安装所有依赖和代码
+# buildscript: |
+#   echo "Building offline-optimized Frappe CRM image..."
+
+#   # 进入 content 目录
+#   cd ./content
+
+#   # 构建自定义镜像
+#   # 使用标签 frappe-crm-offline 以便在 manifest 中引用
+#   docker build -t frappe-crm-offline:latest .
+
+#   # 确保脚本有执行权限
+#   chmod +x ./init.sh
+
+#   echo "Build complete! Custom image 'frappe-crm-offline:latest' created."
+#   echo "This image includes pre-installed Frappe and CRM app for offline use."
+
+# manifest: 指定 lpk 包的 manifest.yml 文件路径
+manifest: ./lzc-manifest.yml
+
+# contentdir: 指定打包的内容,将会打包到 lpk 中
+# 包含 init.sh 启动脚本
+contentdir: ./content
+
+# pkgout: lpk 包的输出路径
+pkgout: ./
+
+# icon: 应用图标路径
+icon: ./icon.png
+
+# devshell: 开发环境配置
+# devshell:
+#   # 开发时的路由规则
+#   routes:
+#     - /=http://127.0.0.1:8000
+
+#   # 开发依赖
+#   dependencies:
+#     - bash
+#     - curl
+#     - git
+
+#   # 开发环境设置脚本
+#   setupscript: |
+#     echo "Frappe CRM 开发环境已准备就绪"
+#     echo "访问 http://localhost:8000 查看应用"

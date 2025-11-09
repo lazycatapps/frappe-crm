@@ -2,7 +2,7 @@
 # 基于 Frappe CRM Docker Compose 配置转换
 
 # 基本信息
-package: cloud.lazycat.app.frappe-crm
+package: cloud.lazycat.app.xiao.frappe-crm
 version: 1.0.0
 name: Frappe CRM
 description: 功能完整的开源 CRM 系统，基于 Frappe Framework
@@ -62,7 +62,7 @@ services:
 
   # MariaDB 数据库服务
   mariadb:
-    image: mariadb:10.8
+    image: registry.lazycat.cloud/xiao/library/mariadb:ec6c67c9b50bc2bb
 
     # 数据库启动参数
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --skip-character-set-client-handshake --skip-innodb-read-only-compressed
@@ -94,7 +94,7 @@ services:
 
   # Redis 缓存服务
   redis:
-    image: redis:alpine
+    image: registry.lazycat.cloud/xiao/library/redis:a16a669304389bd5
 
     # 资源限制
     mem_limit: 256M

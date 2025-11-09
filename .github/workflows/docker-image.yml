@@ -53,8 +53,8 @@ jobs:
     with:
       docker_context: ${{ (github.event_name == 'workflow_dispatch' && inputs.docker_context) || (github.event_name != 'workflow_dispatch' && vars.DOCKER_CONTEXT) || './backend' }}
       dockerfile_path: ${{ (github.event_name == 'workflow_dispatch' && inputs.dockerfile_path) || (github.event_name != 'workflow_dispatch' && vars.DOCKERFILE_PATH) || './backend/Dockerfile' }}
-      docker_target: ${{ (github.event_name == 'workflow_dispatch' && inputs.docker_target) || (github.event_name != 'workflow_dispatch' && vars.DOCKER_TARGET) || 'prod' }}
-      enable_go_tests: ${{ (github.event_name == 'workflow_dispatch' && inputs.enable_go_tests) || (github.event_name != 'workflow_dispatch' && vars.ENABLE_GO_TESTS == 'true') }}
+      docker_target: ${{ (github.event_name == 'workflow_dispatch' && inputs.docker_target) || (github.event_name != 'workflow_dispatch' && vars.DOCKER_TARGET) || '' }}
+      enable_go_tests: ${{ (github.event_name == 'workflow_dispatch' && inputs.enable_go_tests) || (github.event_name != 'workflow_dispatch' && vars.ENABLE_GO_TESTS == 'false') }}
       go_version: ${{ (github.event_name == 'workflow_dispatch' && inputs.go_version) || (github.event_name != 'workflow_dispatch' && vars.GO_VERSION) || 'latest' }}
       go_test_dir: ${{ (github.event_name == 'workflow_dispatch' && inputs.go_test_dir) || (github.event_name != 'workflow_dispatch' && vars.GO_TEST_DIR) || './backend' }}
     secrets:

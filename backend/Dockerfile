@@ -46,16 +46,14 @@ RUN cd /home/frappe/frappe-bench/apps/frappe && \
 
 # 复制启动脚本和工具脚本
 COPY --chown=frappe:frappe init.sh /home/frappe/init.sh
-COPY --chown=frappe:frappe verify-chinese.sh /home/frappe/verify-chinese.sh
-COPY --chown=frappe:frappe set-user-language.sh /home/frappe/set-user-language.sh
+# COPY --chown=frappe:frappe set-user-language.sh /home/frappe/set-user-language.sh
 
-RUN chmod +x /home/frappe/init.sh && \
-    chmod +x /home/frappe/verify-chinese.sh && \
-    chmod +x /home/frappe/set-user-language.sh
+RUN chmod +x /home/frappe/init.sh
+RUN mv /home/frappe/frappe-bench /home/frappe/temp
+# RUN chmod +x /home/frappe/set-user-language.sh
 
 # 设置工作目录
 WORKDIR /home/frappe
-ENV DATA_DIR=/home/frappe
 
 # 默认启动命令
 CMD ["/home/frappe/init.sh"]

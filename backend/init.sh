@@ -4,12 +4,25 @@
 
 set -e
 
+# 如果当前是 root 用户，切换到 frappe 用户重新执行脚本
+if [ "$(id -u)" -eq 0 ]; then
+    echo "Running as root, switching to frappe user..."
+    exec su - frappe -c "$0 $*"
+    exit 0
+fi
+
+# 确保以 frappe 用户执行
+if [ "$(whoami)" != "frappe" ]; then
+    echo "Error: This script must be run as frappe user"
+    exit 1
+fi
+
 # 切换到 frappe 用户的 home 目录
 cd /home/frappe
 
 # 数据持久化目录 (挂载在 /lzcapp/var/frappe-bench)
-PERSISTENT_BENCH="${DATA_DIR}/frappe-bench"
-TEMPLATE_BENCH="/home/frappe/frappe-bench"
+PERSISTENT_BENCH="/home/frappe/frappe-bench"
+TEMPLATE_BENCH="/home/frappe/temp"
 
 # 检查持久化目录是否已经包含完整的 bench 环境
 if [ -f "$PERSISTENT_BENCH/sites/crm.localhost/site_config.json" ]; then
